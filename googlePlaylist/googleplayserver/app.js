@@ -1,15 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const googleApps = require('./playstore');
-const cors = require('cors');
+// const cors = require('cors');
 
 app = express();
 
 app.use(morgan('common'));
-app.use(cors());
+// app.use(cors());
 
 app.get('/apps', (req, res) => {
-  console.log("123")
   const { search ='', sort, genres} = req.query;
   let results = googleApps.filter(googleApp => 
     googleApp.App.toLowerCase().includes(search.toLowerCase())
@@ -39,6 +38,4 @@ app.get('/apps', (req, res) => {
   res.json(results);
 })
 
-app.listen(8000, () => {
-  console.log('Google Play App is running on port 8000!')
-})
+module.exports = app;
